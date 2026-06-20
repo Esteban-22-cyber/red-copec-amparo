@@ -1,0 +1,103 @@
+---
+/**
+ * FaqAccordion.astro
+ * Interactive FAQ accordion using native HTML <details>/<summary> elements.
+ */
+const preguntas = [
+  {
+    pregunta: '¿Tiene algún costo usar la red o cargar mi celular?',
+    respuesta: 'No, es un servicio comunitario completamente gratuito. Red Copec Amparo es una iniciativa de responsabilidad social que busca proteger a las comunidades durante emergencias. No se cobra por el uso del Wi-Fi, la carga de dispositivos ni el acceso al refugio.',
+  },
+  {
+    pregunta: '¿Puedo llevar a mi mascota al refugio?',
+    respuesta: 'Sí, tu mascota es bienvenida. Las estaciones cuentan con zonas delimitadas especialmente habilitadas para animales de compañía. Te pedimos que lleves correa o transportadora para mantener el orden y la seguridad de todos los asistentes.',
+  },
+  {
+    pregunta: '¿Qué dispositivos médicos puedo resguardar en los refrigeradores?',
+    respuesta: 'Nuestros refrigeradores de uso público están diseñados para preservar medicamentos termosensibles como insulina, vacunas, colirios y otros fármacos que requieran cadena de frío. Los insumos deben estar debidamente identificados con nombre del propietario y tipo de medicamento.',
+  },
+  {
+    pregunta: '¿Cómo funciona el Wi-Fi satelital durante una emergencia?',
+    respuesta: 'La conexión se realiza a través de terminales Starlink que operan de forma independiente a la infraestructura terrestre. Durante emergencias, el acceso está limitado a WhatsApp, páginas oficiales de rescate y servicios de emergencia para optimizar el ancho de banda disponible.',
+  },
+  {
+    pregunta: '¿Las estaciones funcionan durante cortes de electricidad?',
+    respuesta: 'Absolutamente. Cada estación Copec Amparo cuenta con paneles solares de alta eficiencia y baterías de respaldo que garantizan operación autónoma por un mínimo de 72 horas sin luz solar. Esto significa que incluso durante un apagón total, la estación permanece 100% operativa.',
+  },
+  {
+    pregunta: '¿Cuánto tiempo puedo permanecer en el refugio?',
+    respuesta: 'No hay límite de permanencia durante una emergencia activa. El refugio está disponible mientras dure la situación de riesgo. En modo normal, las instalaciones están abiertas en horario de atención regular para talleres y actividades comunitarias.',
+  },
+  {
+    pregunta: '¿Qué pasa si necesito atención médica?',
+    respuesta: 'Las estaciones cuentan con kit de primeros auxilios y personal capacitado en respuesta básica. Para emergencias médicas graves, el equipo coordinará con los servicios de emergencia (SAMU 131) utilizando la conectividad satelital disponible.',
+  },
+];
+---
+
+<section id="faq" class="relative bg-surface-secondary py-20 sm:py-28">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center">
+      <span class="inline-block rounded-full bg-copec-blue/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-copec-blue">
+        Información
+      </span>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+        Preguntas Frecuentes
+      </h2>
+      <p class="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
+        Resolvemos tus dudas sobre el funcionamiento de las estaciones Copec Amparo.
+      </p>
+    </div>
+
+    <!-- Accordion -->
+    <div class="mt-12 space-y-3">
+      {preguntas.map((item, index) => (
+        <details
+          class="group rounded-2xl border border-border-default bg-white shadow-card transition-all duration-200 open:shadow-card-hover open:border-copec-blue/20"
+        >
+          <summary class="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-surface-tertiary/50 rounded-2xl">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-copec-blue/10 text-xs font-bold text-copec-blue">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span class="text-sm font-semibold text-text-primary sm:text-base">
+                {item.pregunta}
+              </span>
+            </div>
+            <svg
+              class="faq-chevron h-5 w-5 shrink-0 text-text-muted transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="faq-answer border-t border-border-default px-6 py-5">
+            <p class="pl-11 text-sm leading-relaxed text-text-secondary sm:text-base">
+              {item.respuesta}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="mt-12 text-center">
+      <p class="text-sm text-text-secondary">
+        ¿No encuentras lo que buscas?
+      </p>
+      <a
+        href="mailto:amparo@copec.cl"
+        class="mt-3 inline-flex items-center gap-2 rounded-xl border-2 border-copec-blue px-6 py-3 text-sm font-bold text-copec-blue transition-all duration-200 hover:bg-copec-blue hover:text-white"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+        </svg>
+        Escríbenos a amparo@copec.cl
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+---
+/**
+ * PilarCard.astro
+ * Reusable pillar card with icon slot, title, and description.
+ */
+interface Props {
+  titulo: string;
+  descripcion: string;
+  color: string;
+  colorBg: string;
+  delay?: string;
+}
+
+const { titulo, descripcion, color, colorBg, delay = '0' } = Astro.props;
+---
+
+<div
+  class="group relative overflow-hidden rounded-2xl border border-border-default bg-white p-6 shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 sm:p-8"
+  style={`animation-delay: ${delay}ms`}
+>
+  <!-- Subtle gradient background on hover -->
+  <div class={`absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${colorBg}`}></div>
+
+  <div class="relative">
+    <!-- Icon slot -->
+    <div class={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${colorBg} transition-transform duration-300 group-hover:scale-110`}>
+      <slot name="icon" />
+    </div>
+
+    <!-- Title -->
+    <h3 class="mb-3 text-lg font-bold text-text-primary sm:text-xl">
+      {titulo}
+    </h3>
+
+    <!-- Description -->
+    <p class="text-sm leading-relaxed text-text-secondary sm:text-base">
+      {descripcion}
+    </p>
+
+    <!-- Learn more link -->
+    <div class="mt-5 flex items-center gap-1.5 text-sm font-semibold text-copec-blue opacity-0 transition-all duration-300 group-hover:opacity-100">
+      <span>Conocer más</span>
+      <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  /* Copec Brand Colors */
+  --color-copec-red: #D4222A;
+  --color-copec-red-dark: #A81B22;
+  --color-copec-blue: #003B71;
+  --color-copec-blue-dark: #002A52;
+  --color-copec-blue-light: #0A5EA8;
+
+  /* Semantic Alert Colors */
+  --color-alert-green: #16A34A;
+  --color-alert-green-bg: #F0FDF4;
+  --color-alert-orange: #EA580C;
+  --color-alert-orange-bg: #FFF7ED;
+  --color-alert-red: #DC2626;
+  --color-alert-red-bg: #FEF2F2;
+
+  /* Neutral Palette */
+  --color-surface-primary: #FFFFFF;
+  --color-surface-secondary: #F8FAFC;
+  --color-surface-tertiary: #F1F5F9;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94A3B8;
+  --color-border-default: #E2E8F0;
+  --color-border-subtle: #F1F5F9;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+  --shadow-hero: 0 25px 50px -12px rgba(0,59,113,0.15);
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 34, 42, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(212, 34, 42, 0); }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out both;
+}
+
+/* Stagger delays for grid children */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* Details/Summary accordion */
+details summary {
+  cursor: pointer;
+  list-style: none;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+details[open] .faq-answer {
+  animation: slide-down 0.3s ease-out both;
+}
+
+/* Map pin animation */
+@keyframes ping-pin {
+  0% { transform: scale(1); opacity: 1; }
+  75% { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.pin-ping {
+  animation: ping-pin 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

@@ -1,0 +1,171 @@
+---
+/**
+ * AlertaBanner.astro
+ * Dynamic alert banner that changes color based on emergency status.
+ * States: 'normal' (green), 'preventiva' (orange), 'desastre' (red)
+ */
+interface Props {
+  estado?: 'normal' | 'preventiva' | 'desastre';
+}
+
+const { estado = 'preventiva' } = Astro.props;
+
+const config = {
+  normal: {
+    bg: 'bg-alert-green',
+    text: 'text-white',
+    label: 'Funcionamiento Normal',
+    icon: 'check-circle',
+    description: 'Todos los servicios operativos. Red activa en modo comunitario.',
+  },
+  preventiva: {
+    bg: 'bg-alert-orange',
+    text: 'text-white',
+    label: 'Alerta Preventiva Activada',
+    icon: 'alert-triangle',
+    description: 'Monitoreo activo. Estaciones en preparación para posible emergencia.',
+  },
+  desastre: {
+    bg: 'bg-alert-red',
+    text: 'text-white',
+    label: 'Modo Desastre Activado',
+    icon: 'alert-octagon',
+    description: 'Estaciones operando en modo emergencia. Acérquese a la más cercana.',
+  },
+};
+
+const current = config[estado];
+---
+
+<div
+  id="alerta-banner"
+  class={`${current.bg} ${current.text} transition-all duration-500 ease-in-out`}
+  role="alert"
+  aria-live="assertive"
+  data-estado={estado}
+>
+  <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-2 sm:flex-row">
+      <!-- Status with icon -->
+      <div class="flex items-center gap-3">
+        <!-- Animated dot -->
+        <span class="relative flex h-3 w-3 shrink-0">
+          <span class={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${estado === 'desastre' ? 'bg-red-300' : estado === 'preventiva' ? 'bg-orange-300' : 'bg-green-300'}`}></span>
+          <span class={`relative inline-flex h-3 w-3 rounded-full ${estado === 'desastre' ? 'bg-red-100' : estado === 'preventiva' ? 'bg-orange-100' : 'bg-green-100'}`}></span>
+        </span>
+
+        {estado === 'normal' && (
+          <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        )}
+        {estado === 'preventiva' && (
+          <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+        )}
+        {estado === 'desastre' && (
+          <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+          </svg>
+        )}
+
+        <span class="text-sm font-bold uppercase tracking-wider sm:text-base">
+          {current.label}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <p class="text-center text-xs font-medium opacity-90 sm:text-right sm:text-sm">
+        {current.description}
+      </p>
+
+      <!-- State selector (demo) -->
+      <div class="flex items-center gap-1.5">
+        <button
+          data-set-estado="normal"
+          class="h-6 w-6 rounded-full border-2 border-white/40 bg-green-500 transition-all hover:scale-110 hover:border-white focus:outline-none focus:ring-2 focus:ring-white/60"
+          aria-label="Cambiar a estado normal"
+          title="Normal"
+        ></button>
+        <button
+          data-set-estado="preventiva"
+          class="h-6 w-6 rounded-full border-2 border-white/40 bg-orange-500 transition-all hover:scale-110 hover:border-white focus:outline-none focus:ring-2 focus:ring-white/60"
+          aria-label="Cambiar a alerta preventiva"
+          title="Preventiva"
+        ></button>
+        <button
+          data-set-estado="desastre"
+          class="h-6 w-6 rounded-full border-2 border-white/40 bg-red-600 transition-all hover:scale-110 hover:border-white focus:outline-none focus:ring-2 focus:ring-white/60"
+          aria-label="Cambiar a modo desastre"
+          title="Desastre"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Interactive demo: change alert state on button click
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('alerta-banner');
+    const buttons = document.querySelectorAll('[data-set-estado]');
+
+    const stateConfig: Record<string, { bg: string; label: string; desc: string; dot: string; dotRing: string }> = {
+      normal: {
+        bg: 'bg-alert-green',
+        label: 'Funcionamiento Normal',
+        desc: 'Todos los servicios operativos. Red activa en modo comunitario.',
+        dot: 'bg-green-100',
+        dotRing: 'bg-green-300',
+      },
+      preventiva: {
+        bg: 'bg-alert-orange',
+        label: 'Alerta Preventiva Activada',
+        desc: 'Monitoreo activo. Estaciones en preparación para posible emergencia.',
+        dot: 'bg-orange-100',
+        dotRing: 'bg-orange-300',
+      },
+      desastre: {
+        bg: 'bg-alert-red',
+        label: 'Modo Desastre Activado',
+        desc: 'Estaciones operando en modo emergencia. Acérquese a la más cercana.',
+        dot: 'bg-red-100',
+        dotRing: 'bg-red-300',
+      },
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const newState = (btn as HTMLElement).dataset.setEstado as string;
+        const config = stateConfig[newState];
+        if (!banner || !config) return;
+
+        // Remove old bg classes
+        banner.classList.remove('bg-alert-green', 'bg-alert-orange', 'bg-alert-red');
+        banner.classList.add(config.bg);
+        banner.dataset.estado = newState;
+
+        // Update label
+        const label = banner.querySelector('.uppercase');
+        if (label) label.textContent = config.label;
+
+        // Update description
+        const desc = banner.querySelector('p');
+        if (desc) desc.textContent = config.desc;
+
+        // Update dots
+        const dotOuter = banner.querySelector('.animate-ping');
+        const dotInner = banner.querySelector('.relative.inline-flex');
+        if (dotOuter) {
+          dotOuter.classList.remove('bg-green-300', 'bg-orange-300', 'bg-red-300');
+          dotOuter.classList.add(config.dotRing);
+        }
+        if (dotInner) {
+          dotInner.classList.remove('bg-green-100', 'bg-orange-100', 'bg-red-100');
+          dotInner.classList.add(config.dot);
+        }
+      });
+    });
+  });
+</script>

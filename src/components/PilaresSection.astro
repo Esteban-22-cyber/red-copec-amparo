@@ -1,0 +1,79 @@
+---
+/**
+ * PilaresSection.astro
+ * Grid of 4 pillar cards showcasing the core features of Red Copec Amparo.
+ */
+import PilarCard from './PilarCard.astro';
+---
+
+<section id="pilares" class="relative bg-surface-secondary py-20 sm:py-28">
+  <!-- Section header -->
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="inline-block rounded-full bg-copec-blue/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-copec-blue">
+        Infraestructura
+      </span>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+        Nuestros 4 Pilares
+      </h2>
+      <p class="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
+        Cada estación Copec Amparo está equipada con tecnología de punta para garantizar autonomía, conectividad y protección en situaciones de emergencia.
+      </p>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:gap-8">
+      <!-- 1. Autonomía Energética -->
+      <PilarCard
+        titulo="Autonomía Energética"
+        descripcion="Paneles solares de alta eficiencia y baterías de respaldo permiten que cada estación funcione de forma completamente independiente a la red eléctrica de la ciudad. Incluso ante un apagón total, la energía está garantizada."
+        color="text-yellow-600"
+        colorBg="bg-yellow-50"
+        delay="100"
+      >
+        <svg slot="icon" class="h-7 w-7 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </PilarCard>
+
+      <!-- 2. Conectividad Satelital -->
+      <PilarCard
+        titulo="Conectividad Satelital"
+        descripcion="Conexión Wi-Fi libre vía Starlink para uso exclusivo en emergencias. Comunícate con familiares, accede a canales de rescate y mantente informado cuando las redes terrestres colapsen."
+        color="text-blue-600"
+        colorBg="bg-blue-50"
+        delay="200"
+      >
+        <svg slot="icon" class="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0" />
+        </svg>
+      </PilarCard>
+
+      <!-- 3. Infraestructura de Amparo -->
+      <PilarCard
+        titulo="Infraestructura de Amparo"
+        descripcion="Zonas climatizadas y seguras para resguardo de personas durante eventos extremos. Espacios diseñados para proteger a familias con áreas delimitadas para niños, adultos mayores y mascotas."
+        color="text-copec-red"
+        colorBg="bg-red-50"
+        delay="300"
+      >
+        <svg slot="icon" class="h-7 w-7 text-copec-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </PilarCard>
+
+      <!-- 4. Suministros Críticos -->
+      <PilarCard
+        titulo="Suministros Críticos"
+        descripcion="Refrigeradores de uso público para medicamentos termosensibles como insulina y vacunas. Tótems de carga rápida para celulares con límite de 15 minutos por persona para garantizar acceso equitativo."
+        color="text-purple-600"
+        colorBg="bg-purple-50"
+        delay="400"
+      >
+        <svg slot="icon" class="h-7 w-7 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+        </svg>
+      </PilarCard>
+    </div>
+  </div>
+</section>
